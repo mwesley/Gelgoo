@@ -62,3 +62,11 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# =============== #
+# UnityVS Garbage #
+# =============== #
+
+Assets/UnityVS/*
+Assets/UnityVS.*
+UnityVS.*.DotSettings
