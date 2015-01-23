@@ -1,46 +1,46 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class GelTile : MonoBehaviour
 {
+    // Use this for initialization
+    void Start()
+    {
 
-		// Use this for initialization
-		void Start ()
-		{
+    }
 
-		}
-	
-		// Update is called once per frame
-		void Update ()
-		{
+    // Update is called once per frame
+    void Update()
+    {
 
-				if (this.gameObject.tag != "Tile") {
-						GelUpdate (this.gameObject.tag);
-				} 
+        if (this.gameObject.tag != "Tile")
+        {
+            GelUpdate(this.gameObject.tag);
+        }
 
-		}
+    }
 
-		private void GelUpdate (string tag)
-		{
-				switch (tag) {
-				case "Bouncy":
-						this.particleSystem.startColor = new Color32 (0, 153, 210, 255);
-						this.particleSystem.Play ();
+    private void GelUpdate(string tag)
+    {
+        switch (tag)
+        {
+            case "Bouncy":
+                this.particleSystem.startColor = new Color32(0, 153, 210, 255);
+                this.particleSystem.Play();
 
-						break;
+                break;
 
-				case "Sticky":
-						this.particleSystem.startColor = new Color32 (255, 255, 255, 255);
-						this.particleSystem.Play ();
+            case "Sticky":
+                this.particleSystem.startColor = new Color32(255, 255, 255, 255);
+                this.particleSystem.Play();
 
-						break;
+                break;
 
-				case "Water":
-						this.particleSystem.Stop ();
-						this.gameObject.tag = "Tile";
-						break;
+            case "Water":
+                this.particleSystem.Stop();
+                this.gameObject.tag = "Tile";
+                break;
 
 
-				}
-		}
+        }
+    }
 }

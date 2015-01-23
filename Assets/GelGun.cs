@@ -1,77 +1,80 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class GelGun : MonoBehaviour {
-
+public class GelGun : MonoBehaviour
+{
     private Vector3 mousePos;
-    private float z;
+    private float _z;
     //public GameObject gelBit;
-    private Vector2 shootDir;
-    public float shootSpeed;
-    public bool controller;
-    private float x;
-    private float y;
-	private int i;
+    private Vector2 _shootDir;
+    public float ShootSpeed;
+    public bool Controller;
+    private float _x;
+    private float _y;
+    private int _i;
 
-	public GameObject[] gelArray;
+    public GameObject[] gelArray;
 
-	// Use this for initialization
-	void Start () {
-		i = 0;
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    void Start()
+    {
+        _i = 0;
+    }
 
-        if (!controller)
+    // Update is called once per frame
+    void Update()
+    {
+        if (!Controller)
         {
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Debug.Log(mousePos.magnitude);
-            z = Mathf.Atan2((mousePos.y - transform.position.y), (mousePos.x - transform.position.x)) * Mathf.Rad2Deg;     
+            _z = Mathf.Atan2((mousePos.y - transform.position.y), (mousePos.x - transform.position.x)) * Mathf.Rad2Deg;
         }
-        else if (controller)
+        else if (Controller)
         {
-            x = Input.GetAxis("RightX");
-            y = Input.GetAxis("RightY");
-            z = Mathf.Atan2(-y, x) * Mathf.Rad2Deg;
+            _x = Input.GetAxis("RightX");
+            _y = Input.GetAxis("RightY");
+            _z = Mathf.Atan2(-_y, _x) * Mathf.Rad2Deg;
         }
 
-        transform.eulerAngles = new Vector3(0, 0, z);
+        transform.eulerAngles = new Vector3(0, 0, _z);
         ShootGel();
-		CycleAmmo ();
-	
-	}
+        CycleAmmo();
+
+    }
 
     private void ShootGel()
     {
         if (Input.GetButton("Fire1") || Input.GetAxis("Right Trigger") != 0)
         {
             float wobbleFactor = Random.Range(-1.0f, 1.0f);
-            if (!controller)
+            if (!Controller)
             {
-                shootDir = mousePos - transform.position;
+                _shootDir = mousePos - transform.position;
             }
-            else if (controller)
+            else if (Controller)
             {
-                shootDir = new Vector2(x, -y);
+                _shootDir = new Vector2(_x, -_y);
             }
 
-            GameObject gelbit = Instantiate(gelArray[i], transform.position, Quaternion.identity) as GameObject;
-            Vector2 shootDirNormal = shootDir.normalized;
-            gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * shootSpeed, (shootDirNormal.y * shootSpeed) + wobbleFactor);
+            GameObject gelbit = Instantiate(gelArray[_i], transform.position, Quaternion.identity) as GameObject;
+            Vector2 shootDirNormal = _shootDir.normalized;
+            gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * ShootSpeed, (shootDirNormal.y * ShootSpeed) + wobbleFactor);
         }
-    
+
     }
 
-	private void CycleAmmo()
-	{
-				if (Input.GetButtonDown ("CycleRight")) {
-						if (i >= gelArray.Length - 1) {
-								i = 0;
-						} else {
-								i++; 
-						}
-				}
-		}
+    private void CycleAmmo()
+    {
+        if (Input.GetButtonDown("CycleRight"))
+        {
+            if (_i >= gelArray.Length - 1)
+            {
+                _i = 0;
+            }
+            else
+            {
+                _i++;
+            }
+        }
+    }
 }

@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public float moveSpeed;
+    public float MoveSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -23,6 +22,6 @@ public class PlayerMovement : MonoBehaviour {
     private void InputMovement()
     {
         float x = Input.GetAxis("Horizontal");
-        rigidbody2D.velocity = new Vector2(x * moveSpeed, rigidbody2D.velocity.y);
+        rigidbody2D.velocity = new Vector2(x * MoveSpeed, rigidbody2D.velocity.y);
     }
 }
