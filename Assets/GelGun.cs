@@ -2,17 +2,17 @@
 
 public class GelGun : MonoBehaviour
 {
-    private Vector3 mousePos;
-    private float _z;
-    //public GameObject gelBit;
-    private Vector2 _shootDir;
     public float ShootSpeed;
     public bool Controller;
+    public GameObject[] GelArray;
+    //public GameObject gelBit;
+
+    private Vector2 _shootDir;
+    private Vector3 _mousePos;
     private float _x;
     private float _y;
+    private float _z;
     private int _i;
-
-    public GameObject[] gelArray;
 
     // Use this for initialization
     void Start()
@@ -25,9 +25,9 @@ public class GelGun : MonoBehaviour
     {
         if (!Controller)
         {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             //Debug.Log(mousePos.magnitude);
-            _z = Mathf.Atan2((mousePos.y - transform.position.y), (mousePos.x - transform.position.x)) * Mathf.Rad2Deg;
+            _z = Mathf.Atan2((_mousePos.y - transform.position.y), (_mousePos.x - transform.position.x)) * Mathf.Rad2Deg;
         }
         else if (Controller)
         {
@@ -49,14 +49,14 @@ public class GelGun : MonoBehaviour
             float wobbleFactor = Random.Range(-1.0f, 1.0f);
             if (!Controller)
             {
-                _shootDir = mousePos - transform.position;
+                _shootDir = _mousePos - transform.position;
             }
             else if (Controller)
             {
                 _shootDir = new Vector2(_x, -_y);
             }
 
-            GameObject gelbit = Instantiate(gelArray[_i], transform.position, Quaternion.identity) as GameObject;
+            GameObject gelbit = Instantiate(GelArray[_i], transform.position, Quaternion.identity) as GameObject;
             Vector2 shootDirNormal = _shootDir.normalized;
             gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * ShootSpeed, (shootDirNormal.y * ShootSpeed) + wobbleFactor);
         }
@@ -67,7 +67,7 @@ public class GelGun : MonoBehaviour
     {
         if (Input.GetButtonDown("CycleRight"))
         {
-            if (_i >= gelArray.Length - 1)
+            if (_i >= GelArray.Length - 1)
             {
                 _i = 0;
             }
