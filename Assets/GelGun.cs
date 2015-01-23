@@ -5,15 +5,19 @@ public class GelGun : MonoBehaviour {
 
     private Vector3 mousePos;
     private float z;
-    public GameObject gelBit;
+    //public GameObject gelBit;
     private Vector2 shootDir;
     public float shootSpeed;
     public bool controller;
     private float x;
     private float y;
+	private int i;
+
+	public GameObject[] gelArray;
 
 	// Use this for initialization
 	void Start () {
+		i = 0;
 	
 	}
 	
@@ -35,7 +39,7 @@ public class GelGun : MonoBehaviour {
 
         transform.eulerAngles = new Vector3(0, 0, z);
         ShootGel();
-
+		CycleAmmo ();
 	
 	}
 
@@ -52,10 +56,22 @@ public class GelGun : MonoBehaviour {
             {
                 shootDir = new Vector2(x, -y);
             }
-            GameObject gelbit = Instantiate(gelBit, transform.position, Quaternion.identity) as GameObject;
+
+            GameObject gelbit = Instantiate(gelArray[i], transform.position, Quaternion.identity) as GameObject;
             Vector2 shootDirNormal = shootDir.normalized;
             gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * shootSpeed, (shootDirNormal.y * shootSpeed) + wobbleFactor);
         }
     
     }
+
+	private void CycleAmmo()
+	{
+				if (Input.GetButtonDown ("CycleRight")) {
+						if (i >= gelArray.Length - 1) {
+								i = 0;
+						} else {
+								i++; 
+						}
+				}
+		}
 }

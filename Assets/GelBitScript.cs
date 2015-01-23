@@ -18,10 +18,11 @@ public class GelBitScript : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Tile")
-        {
-            col.gameObject.tag = gameObject.tag;
-        }
+        if (col.gameObject.tag == "Tile") {
+						col.gameObject.tag = gameObject.tag;
+				} else if (col.gameObject.tag != "Tile" && this.gameObject.tag == "Water") {
+						col.gameObject.tag = "Tile";
+				}
         Destroy(this.gameObject, 0.02f);
 
     }
