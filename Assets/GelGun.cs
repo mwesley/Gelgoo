@@ -30,14 +30,11 @@ public class GelGun : MonoBehaviour {
     {
         if (Input.GetButton("Fire1"))
         {
-            float x = shootDir.x; float y = shootDir.y;
-            float wobbleFactor = Random.Range(-0.5f, 0.5f);
+            float wobbleFactor = Random.Range(-2.0f, 2.0f);
             shootDir = mousePos - transform.position;
-            GameObject go = Instantiate(gelBit, transform.position, Quaternion.identity) as GameObject;
-            x = Mathf.Clamp(x, -3.0f, 3.0f);
-            y = Mathf.Clamp(y, -3.0f, 3.0f);
-            Debug.Log(x + " + " + y);
-            go.rigidbody2D.velocity = new Vector2(x * shootSpeed, (y + wobbleFactor) * shootSpeed);
+            GameObject gelbit = Instantiate(gelBit, transform.position, Quaternion.identity) as GameObject;
+            Vector2 shootDirNormal = shootDir.normalized;
+            gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * shootSpeed, (shootDirNormal.y * shootSpeed) + wobbleFactor);
         }
     
     }
