@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         else if(!_grounded)
         {
-            _xFactor = x * MoveSpeed * 0.75f;
+            _xFactor = x * MoveSpeed;
             rigidbody2D.AddForce(new Vector2 (_xFactor, 0));
             if(rigidbody2D.velocity.x >= 10f)
             {
