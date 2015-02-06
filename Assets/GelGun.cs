@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
 
 public class GelGun : MonoBehaviour
 {
     public float ShootSpeed;
     public bool Controller;
-    public GameObject[] GelArray;
+    public List<GameObject> GelArray;
     //public GameObject gelBit;
 
     private Vector2 _shootDir;
@@ -13,11 +15,13 @@ public class GelGun : MonoBehaviour
     private float _y;
     private float _z;
     private int _i;
+    private GameObject BouncyGelBit;
 
     // Use this for initialization
     void Start()
     {
         _i = 0;
+        BouncyGelBit = Resources.Load<GameObject>("BouncyGelBit");
     }
 
     // Update is called once per frame
@@ -26,7 +30,6 @@ public class GelGun : MonoBehaviour
         if (!Controller)
         {
             _mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //Debug.Log(mousePos.magnitude);
             _z = Mathf.Atan2((_mousePos.y - transform.position.y), (_mousePos.x - transform.position.x)) * Mathf.Rad2Deg;
         }
         else if (Controller)
@@ -40,6 +43,20 @@ public class GelGun : MonoBehaviour
         ShootGel();
         CycleAmmo();
 
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+
+        switch(col.gameObject.tag)
+        {
+                
+            case "BouncyPickup":
+                GelArray.Add(BouncyGelBit);
+                Destroy(col.gameObject);
+                break;
+
+        }
     }
 
     private void ShootGel()
@@ -67,7 +84,7 @@ public class GelGun : MonoBehaviour
     {
         if (Input.GetButtonDown("CycleRight"))
         {
-            if (_i >= GelArray.Length - 1)
+            if (_i >= GelArray.Count - 1)
             {
                 _i = 0;
             }
