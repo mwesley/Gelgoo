@@ -10,7 +10,7 @@ public class GelTile : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (this.gameObject.tag != "Tile")
         {

@@ -4,12 +4,16 @@ public class PlayerMovement : MonoBehaviour {
 
     public float MoveSpeed;
     public bool _grounded;
+    public RaycastHit2D GroundRay;
+
     private float _xFactor;
+    private LayerMask _tileMask;
 
 	// Use this for initialization
-    void Start()
+    void Awake()
     {
-
+        _tileMask = LayerMask.GetMask("Tiles");
+        _grounded = true;
     }
 	
 	// Update is called once per frame
@@ -22,13 +26,19 @@ public class PlayerMovement : MonoBehaviour {
     {
         InputMovement();
         Jump();
+        
 
-        if(!_grounded)
-            BouncyGel.Bounce();
-        if(!_grounded && rigidbody2D.velocity.y == 0)
+        GroundRay = Physics2D.Raycast(this.transform.position, new Vector2(0,-0.5f), 0.75f, _tileMask.value);
+
+        if (GroundRay.collider != null)
         {
             _grounded = true;
         }
+        else
+        {
+            _grounded = false;
+        }
+
     }
 
     private void InputMovement()
@@ -46,7 +56,6 @@ public class PlayerMovement : MonoBehaviour {
             {
                 rigidbody2D.velocity = new Vector2(10f, rigidbody2D.velocity.y);
             }
-            Debug.Log(rigidbody2D.velocity.x);
         }
     }
 
@@ -58,4 +67,10 @@ public class PlayerMovement : MonoBehaviour {
             _grounded = false;
         }
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        BouncyGel.Bounce();
+    }
+
 }
