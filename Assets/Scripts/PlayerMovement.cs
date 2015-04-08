@@ -8,12 +8,18 @@ public class PlayerMovement : MonoBehaviour {
 
     private float _xFactor;
     private LayerMask _tileMask;
+    float x;
+
 
 	// Use this for initialization
     void Awake()
     {
         _tileMask = LayerMask.GetMask("Tiles");
         _grounded = true;
+    }
+
+    void Start()
+    {
     }
 	
 	// Update is called once per frame
@@ -24,9 +30,8 @@ public class PlayerMovement : MonoBehaviour {
 
     void FixedUpdate()
     {
+        x = Input.GetAxis("Horizontal");
         InputMovement();
-        Jump();
-        
 
         GroundRay = Physics2D.Raycast(this.transform.position, new Vector2(0,-0.5f), 0.75f, _tileMask.value);
 
@@ -39,6 +44,10 @@ public class PlayerMovement : MonoBehaviour {
             _grounded = false;
         }
 
+        if (_grounded)
+        {
+            Jump();
+        }
     }
 
     private void InputMovement()
@@ -61,10 +70,9 @@ public class PlayerMovement : MonoBehaviour {
 
     private void Jump()
     {
-        if(Input.GetButtonDown("Jump") && _grounded)
+        if(Input.GetButtonDown("Jump"))
         {
-            rigidbody2D.AddForce(new Vector2 (0f, 7.5f), ForceMode2D.Impulse);
-            _grounded = false;
+            rigidbody2D.AddForce(new Vector2(0f, 10f), ForceMode2D.Impulse);
         }
     }
 
