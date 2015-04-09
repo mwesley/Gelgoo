@@ -75,7 +75,7 @@ public class GelGun : MonoBehaviour
 
             GameObject gelbit = Instantiate(GelArray[_i], transform.position, Quaternion.identity) as GameObject;
             Vector2 shootDirNormal = _shootDir.normalized;
-            gelbit.rigidbody2D.velocity = new Vector2(shootDirNormal.x * ShootSpeed, (shootDirNormal.y * ShootSpeed) + wobbleFactor);
+            gelbit.GetComponent<Rigidbody2D>().velocity = new Vector2(shootDirNormal.x * ShootSpeed, (shootDirNormal.y * ShootSpeed) + wobbleFactor);
         }
 
     }

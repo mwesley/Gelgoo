@@ -22,8 +22,8 @@ public class BouncyGel : MonoBehaviour
     void FixedUpdate()
     {
         
-        _y = _player.rigidbody2D.velocity.y;
-        _x = _player.rigidbody2D.velocity.x;
+        _y = _player.GetComponent<Rigidbody2D>().velocity.y;
+        _x = _player.GetComponent<Rigidbody2D>().velocity.x;
 
         if(_bouncing)
         {
@@ -47,24 +47,24 @@ public class BouncyGel : MonoBehaviour
 
         if (downBounceRay.collider != null && downBounceRay.collider.tag == "Bouncy" && !_bouncing)
         {
-            _player.rigidbody2D.velocity = new Vector2 (_x, -_y);
+            _player.GetComponent<Rigidbody2D>().velocity = new Vector2 (_x, -_y);
             _bouncing = true;
         }
         if (upBounceRay.collider != null && upBounceRay.collider.tag == "Bouncy" && !_bouncing)
         {
-            _player.rigidbody2D.velocity = new Vector2(_x, -_y);
+            _player.GetComponent<Rigidbody2D>().velocity = new Vector2(_x, -_y);
             _bouncing = true;
         }
         if (leftBounceRay.collider != null && leftBounceRay.collider.tag == "Bouncy")
         {
             Debug.Log("Bounce!");
-            _player.rigidbody2D.velocity = new Vector2(-_x, 5);
+            _player.GetComponent<Rigidbody2D>().velocity = new Vector2(-_x, 5);
             _bouncing = true;
         }
         if (rightBounceRay.collider != null && rightBounceRay.collider.tag == "Bouncy")
         {
             Debug.Log("Bounce!");
-            _player.rigidbody2D.velocity = new Vector2(-_x, 5);
+            _player.GetComponent<Rigidbody2D>().velocity = new Vector2(-_x, 5);
             _bouncing = true;
         }
         

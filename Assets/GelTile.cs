@@ -26,17 +26,17 @@ public class GelTile : MonoBehaviour
         switch (tag)
         {
             case "Bouncy":
-                this.particleSystem.startColor = new Color32(0, 153, 210, 255);
-                this.particleSystem.Play();
+                this.GetComponent<ParticleSystem>().startColor = new Color32(0, 153, 210, 255);
+                this.GetComponent<ParticleSystem>().Play();
                 break;
 
             case "Sticky":
-                this.particleSystem.startColor = new Color32(255, 255, 255, 255);
-                this.particleSystem.Play();
+                this.GetComponent<ParticleSystem>().startColor = new Color32(255, 255, 255, 255);
+                this.GetComponent<ParticleSystem>().Play();
                 break;
 
             case "Water":
-                this.particleSystem.Stop();
+                this.GetComponent<ParticleSystem>().Stop();
                 this.gameObject.tag = "Tile";
                 break;
 
