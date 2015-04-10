@@ -5,7 +5,7 @@ public class HookScript : MonoBehaviour
 {
     private GameObject _player;
     private GameObject _hook;
-    private float _dist;
+    public float Dist;
     private SpringJoint2D _grappleRope;
 
     private Grapple _grappleScript;
@@ -26,15 +26,15 @@ public class HookScript : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        float dist = Vector2.Distance(_hook.transform.position, _player.transform.position);
+        Dist = Vector2.Distance(_hook.transform.position, _player.transform.position);
         _hook.GetComponent<Rigidbody2D>().isKinematic = true;
         if (!_grappleRope)
         {
             _grappleRope = _player.AddComponent<SpringJoint2D>();
-            _grappleRope.enableCollision = true;
             _grappleRope.connectedAnchor = Vector3.zero;
+            _grappleRope.enableCollision = true;
             _grappleRope.connectedBody = this.GetComponent<Rigidbody2D>();
-            _grappleRope.distance = dist;
+            _grappleRope.distance = Dist;
             _grappleRope.dampingRatio = 5f;
             _grappleScript.IsHooked = true;
         }
@@ -49,7 +49,10 @@ public class HookScript : MonoBehaviour
         } 
         else if(y < 0)
         {
-            _grappleRope.distance += Time.deltaTime * 3;
+            if (_grappleRope.distance < 7.5f)
+            {
+                _grappleRope.distance += Time.deltaTime * 3;
+            }
         }
     }
 }
